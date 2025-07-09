@@ -1,0 +1,24 @@
+language: java
+
+jdk:
+  - openjdk8
+
+install:
+  - echo "Skipping installation, managed by build tool"
+
+script:
+  # Build jar files, skip tests here
+  - ./gradlew clean build -x test
+
+  # Run unit tests
+  - ./gradlew test
+
+after_success:
+  # Run the coverage tool, example:
+  - ./gradlew jacocoTestReport
+
+  # Run the bash command to print coverage summary
+  - bash ./scripts/coverage-summary.sh   # Replace with your actual command
+
+notifications:
+  email: false
